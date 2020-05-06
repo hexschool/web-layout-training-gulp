@@ -78,6 +78,8 @@ function watch() {
 
 exports.deploy = deploy;
 
+exports.clean = clean;
+
 exports.build = gulp.series(clean, copyFile, layoutHTML, sass);
 
 exports.default = gulp.series(clean, copyFile, layoutHTML, sass, gulp.parallel(browser, watch));
