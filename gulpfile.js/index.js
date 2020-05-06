@@ -35,7 +35,6 @@ function sass() {
   const plugins = [
     autoprefixer(),
   ];
-  // 若是撰寫 Sass 請將 src 改成 envOptions.style.srcSass
   return gulp.src(envOptions.style.src) 
     .pipe($.sourcemaps.init())
     .pipe($.sass().on('error', $.sass.logError))
