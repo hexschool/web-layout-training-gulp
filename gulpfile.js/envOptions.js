@@ -7,7 +7,7 @@ let envOptions = {
   default: {
     env: 'dev',
   },
-  conyFile: {
+  copyFile: {
     src: [
       `${srcPath}/**/*`,
       `!${srcPath}/assets/js/**/*.js`,
