@@ -7,11 +7,16 @@ const { envOptions } = require('./envOptions');
 
 let options = minimist(process.argv.slice(2), envOptions);
 //現在開發狀態
-console.log(`Current mode：${options}`);
+console.log(`Current mode：${options.env}`);
 
 function copyFile() {
   return gulp.src(envOptions.conyFile.src)
-  .pipe(gulp.dest(envOptions.conyFile.path));
+  .pipe(gulp.dest(envOptions.conyFile.path))
+  .pipe(
+    browserSync.reload({
+      stream: true,
+    }),
+  );
 }
 
 function layoutHTML() {
@@ -31,11 +36,11 @@ function layoutHTML() {
     );
 }
 
-function scss() {
+function sass() {
   const plugins = [
     autoprefixer(),
   ];
-  return gulp.src(envOptions.style.src)
+  return gulp.src(envOptions.style.src) 
     .pipe($.sourcemaps.init())
     .pipe($.sass().on('error', $.sass.logError))
     .pipe($.postcss(plugins))
@@ -48,17 +53,43 @@ function scss() {
     );
 }
 
+function babel() {
+  return gulp.src(envOptions.javascript.src)
+    .pipe($.sourcemaps.init())
+    .pipe($.babel({
+      presets: ['@babel/env'],
+    }))
+    .pipe($.concat(envOptions.javascript.concat))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest(envOptions.javascript.path))
+    .pipe(
+      browserSync.reload({
+        stream: true,
+      }),
+    );
+}
+
+function vendorsJs() {
+  return gulp.src(envOptions.vendors.src)
+    .pipe($.concat(envOptions.vendors.concat))
+    .pipe(gulp.dest(envOptions.vendors.path));
+}
+
+
 function browser() {
   browserSync.init({
     server: {
-      baseDir: envOptions.browserDir
+      baseDir: envOptions.browserDir,
     },
-    port: 8080
+    port: 8080,
   });
 }
 
 function clean() {
-  return gulp.src(envOptions.clean.src, { read: false, allowEmpty: true })
+  return gulp.src(envOptions.clean.src, {
+      read: false,
+      allowEmpty: true,
+    })
     .pipe($.clean());
 }
 
@@ -69,11 +100,16 @@ function deploy() {
 
 function watch() {
   gulp.watch(envOptions.html.src, gulp.series(layoutHTML));
-  gulp.watch(envOptions.style.src, gulp.series(scss));
+  gulp.watch(envOptions.html.ejsSrc, gulp.series(layoutHTML));
+  gulp.watch(envOptions.javascript.src, gulp.series(babel));
+  gulp.watch(envOptions.img.src, gulp.series(copyFile));
+  gulp.watch(envOptions.style.src, gulp.series(sass));
 }
 
 exports.deploy = deploy;
 
-exports.build = gulp.series(clean, copyFile, layoutHTML, scss);
+exports.clean = clean;
 
-exports.default = gulp.series(clean, copyFile, layoutHTML, scss, gulp.parallel(browser, watch));
+exports.build = gulp.series(clean, copyFile, layoutHTML, sass, babel, vendorsJs);
+
+exports.default = gulp.series(clean, copyFile, layoutHTML, sass, babel, vendorsJs, gulp.parallel(browser, watch));
