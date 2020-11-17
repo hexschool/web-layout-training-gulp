@@ -88,7 +88,7 @@ A: 這邊問題有許多種，因此在排除上可能會比較麻煩，需要�
 - 電腦可能沒有安裝 Git(可以執行一下 `git --version` 確保有出現版本號)。
 - 忘記執行 `npm install`
 - 對於終端機的 Git 操作不熟悉(可以考慮使用 GitHub Desktop 來操作會較為方便)。
-- 出現「`not a git repository`」(主要是缺少了 `git init` 將目前專案加入版本控制)
+- 出現「`not a git repository`」(主要是缺少了 `git init` 將目前專案初始化 Git)
 
 Q: 執行 `gulp` 之後瀏覽器沒有自動開啟。
 A: 關於這一點每一台電腦的瀏覽器權限都不同，因此若沒有自動開啟的話，｀可以手動將 `http://localhost:8080/` 貼入到自己手動開的瀏覽器也可以哦。
