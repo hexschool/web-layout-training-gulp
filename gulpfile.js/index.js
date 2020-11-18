@@ -10,8 +10,8 @@ let options = minimist(process.argv.slice(2), envOptions);
 console.log(`Current mode：${options.env}`);
 
 function copyFile() {
-  return gulp.src(envOptions.conyFile.src)
-  .pipe(gulp.dest(envOptions.conyFile.path))
+  return gulp.src(envOptions.copyFile.src)
+  .pipe(gulp.dest(envOptions.copyFile.path))
   .pipe(
     browserSync.reload({
       stream: true,
