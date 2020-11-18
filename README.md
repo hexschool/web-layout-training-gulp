@@ -72,18 +72,23 @@ git push -u origin master // 僅限第一次輸入，往後只需要輸入 git p
 ## 其他可能的狀況
 
 Q：Mac 環境下輸入 `npm install -g gulp` 時出現「`Permission denied`」等字眼。
+
 A：由於 Mac 在環境上的安裝是會比較嚴格的，當出現「`Permission denied`」時，可以在指令前面加上 `sudo` (`sudo npm install -g gulp`)
 
 Q: Window 環境下輸入 `gulp` 卻出現「`因為這個系統上已停用指令碼執行，所以無法載入...`」
+
 A: 後來的 Window 在終端機的權限使用上會預設是禁止使用一些指令的，因此可以參考 [這一篇](https://hsiangfeng.github.io/other/20200510/1067127387/) 文章解決。
 
 Q: 輸入 `gulp deploy` 卻出現「`TypeError: Cannot read property 0 of null`」。
+
 A: 這是一個很神奇的問題，在原套件的 issues 也有提供相關討論，因此可以參考 [這一篇](https://hsiangfeng.github.io/gulp/20191220/1507807439/) 文章解決。
 
 Q: Gulp SCSS 或是 JS 撰寫完畢並儲存檔案後 Gulp 不會重新編譯。
+
 A: 這邊的原因有可能是修改了預設 Gulp 監聽的路徑資料夾，預設是監聽 `style`、`js`、 `images` 這幾個資料夾路徑底下的檔案，因此若任意修改名稱將可能導致 Gulp 的監聽功能失效或其他不可預期之問題發生，除此之外該專案 Gulp 是監聽 `.scss` 檔案對於 `.css` 並沒有監聽自動更新的效果。
 
 Q: 其他可能的問題且無法部署到 GitHub Pages。
+
 A: 這邊問題有許多種，因此在排除上可能會比較麻煩，需要多一點耐心。
 
 - 可能沒有針對 GitHub 專案做第一次的初始化部署。
@@ -93,14 +98,17 @@ A: 這邊問題有許多種，因此在排除上可能會比較麻煩，需要�
 - 出現「`not a git repository`」(主要是缺少了 `git init` 將目前專案初始化 Git)
 
 Q: 執行 `gulp` 之後瀏覽器沒有自動開啟。
+
 A: 關於這一點每一台電腦的瀏覽器權限都不同，因此若沒有自動開啟的話，｀可以手動將 `http://localhost:8080/` 貼入到自己手動開的瀏覽器也可以哦。
 
 Q: 輸入 `gulp deploy` 之後出現 「`Message: Command filed: git pull`」提示訊息
+
 A: 這邊請麻煩刪除隱藏的資料夾「`.publish`」再重新 `gulp deploy` 就可以囉。
 
 這種狀況通常發生在操作流程上可能不正確導致錯誤，因此打開「`.publish`」的時候會看到未編譯後的 Gulp 原始碼，正確來講該資料夾底下只會有編譯後的原始碼，如果刪除「`.publish`」之後狀況還是沒改善，那麼建議刪除「`dist`」資料夾並重新輸入 `gulp build` → `gulp deploy` 即可。
 
 Q: 以上問題都無法解決
+
 A: 建議可以查看一下自己的相關版本，以下是專案開發者的運行環境
 
 - Node v12.18.2
