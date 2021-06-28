@@ -16,7 +16,7 @@
 
 ## 說明
 
-該分支專案預設載入 Bootstrap 與 jQuery 等。
+該分支專案預設載入 Bootstrap5 與 jQuery 等。
 
 若有需要調整相關路徑參數可在 `envOptions.js` 中調整，但建議不要隨意調整導致 Gulp 無法正常運行。
 
