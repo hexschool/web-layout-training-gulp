@@ -1,3 +1,3 @@
 $(function() {
-  console.log('Hello Bootstrap4');
+  console.log('Hello Bootstrap5');
 });
