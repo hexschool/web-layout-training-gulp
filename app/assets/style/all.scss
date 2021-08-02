@@ -1,3 +1,6 @@
-@import "functions";
+@import "../../../node_modules/bootstrap/scss/functions";
 @import "./helpers/variables";
-@import "bootstrap";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+
+@import './layout/index.scss'
