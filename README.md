@@ -1,4 +1,4 @@
-# 網頁切版直播班 Gulp 範例
+# 網頁切版直播班 Gulp 範例 - Tailwind 版本
 
 > 使用該專案 Gulp 時，就可以不用使用其他編譯工具編譯 SCSS 或是 JavaScript 囉。
 
@@ -16,7 +16,12 @@
 
 ## 說明
 
-除了 Boostrap CSS 與 Boostrap JavaScript 需要掛 CDN 之外，本身已經內建打包 jQuery 3.5.1。
+Tailwind 版本為 3.0.24
+
+載入Tailwind 相關套件
+
+1. @tailwindcss/typography
+2. @tailwindcss/forms
 
 若有需要調整相關路徑參數可在 `envOptions.js` 中調整，但建議不要隨意調整導致 Gulp 無法正常運行。
 
@@ -29,11 +34,14 @@
     - images # 圖片放置處
     - js # JavaScript 放置處
     - style # 樣式放置處
+      - all.css # Tailwind CSS 撰寫位置
   - index.html # 首頁 HTML
   - layout.ejs # Layout ejs
 - gulpfile.js # Gulp 原始碼
   - envOptions.js # Gulp 路徑變數
   - index.js # Gulp 核心原始碼
+- tailwind.config.js # Tailwind 設定檔
+- postcss.config.js # PostCss 設定檔
 
 ### 注意事項
 
@@ -47,7 +55,7 @@ Gulp 的自動更新行為是必須持續開著終端機的，因此若關閉終
 
 ## 支援的監聽
 
-目前支援 HTML、ejs、JavaScript、Images、SCSS 監聽並自動重新刷新。
+目前支援 HTML、ejs、JavaScript、Images、Tailwind 監聽並自動重新刷新。
 
 圖片新增時也會自動刷新。
 
