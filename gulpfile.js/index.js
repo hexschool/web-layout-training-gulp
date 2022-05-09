@@ -35,22 +35,12 @@ function layoutHTML() {
       }),
     );
 }
-
-function sass() {
-  const plugins = [
-    autoprefixer(),
-  ];
-  return gulp.src(envOptions.style.src)
-    .pipe($.sourcemaps.init())
-    .pipe($.sass().on('error', $.sass.logError))
-    .pipe($.postcss(plugins))
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest(envOptions.style.path))
-    .pipe(
-      browserSync.reload({
-        stream: true,
-      }),
-    );
+function tailwind() {
+  const postcss = require('gulp-postcss')
+  return gulp
+    .src(envOptions.style.src)
+    .pipe(postcss())
+    .pipe(gulp.dest(envOptions.style.path));
 }
 
 function babel() {
@@ -103,13 +93,12 @@ function watch() {
   gulp.watch(envOptions.html.ejsSrc, gulp.series(layoutHTML));
   gulp.watch(envOptions.javascript.src, gulp.series(babel));
   gulp.watch(envOptions.img.src, gulp.series(copyFile));
-  gulp.watch(envOptions.style.src, gulp.series(sass));
+  gulp.watch(envOptions.style.src, gulp.series(tailwind));
 }
 
 exports.deploy = deploy;
 
 exports.clean = clean;
 
-exports.build = gulp.series(clean, copyFile, layoutHTML, sass, babel, vendorsJs);
-
-exports.default = gulp.series(clean, copyFile, layoutHTML, sass, babel, vendorsJs, gulp.parallel(browser, watch));
+exports.build = gulp.series(clean, copyFile, layoutHTML, tailwind, babel, vendorsJs);
+exports.default = gulp.series(clean, copyFile, layoutHTML, tailwind, babel, vendorsJs, gulp.parallel(browser, watch));
