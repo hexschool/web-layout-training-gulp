@@ -35,7 +35,7 @@ function layoutHTML() {
       }),
     );
 }
-function tailwind() {
+function postcss() {
   const postcss = require('gulp-postcss')
   return gulp
     .src(envOptions.style.src)
@@ -89,16 +89,16 @@ function deploy() {
 }
 
 function watch() {
-  gulp.watch(envOptions.html.src, gulp.series(layoutHTML));
-  gulp.watch(envOptions.html.ejsSrc, gulp.series(layoutHTML));
+  gulp.watch(envOptions.html.src, gulp.series(layoutHTML, postcss));
+  gulp.watch(envOptions.html.ejsSrc, gulp.series(layoutHTML, postcss));
   gulp.watch(envOptions.javascript.src, gulp.series(babel));
   gulp.watch(envOptions.img.src, gulp.series(copyFile));
-  gulp.watch(envOptions.style.src, gulp.series(tailwind));
+  gulp.watch(envOptions.style.src, gulp.series(postcss));
 }
 
 exports.deploy = deploy;
 
 exports.clean = clean;
 
-exports.build = gulp.series(clean, copyFile, layoutHTML, tailwind, babel, vendorsJs);
-exports.default = gulp.series(clean, copyFile, layoutHTML, tailwind, babel, vendorsJs, gulp.parallel(browser, watch));
+exports.build = gulp.series(clean, copyFile, layoutHTML, postcss, babel, vendorsJs);
+exports.default = gulp.series(clean, copyFile, layoutHTML, postcss, babel, vendorsJs, gulp.parallel(browser, watch));
